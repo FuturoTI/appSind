@@ -6,7 +6,7 @@ import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { CoreModule } from './core/core.module';
 
 import { AppComponent } from './app.component';
-import { environment } from './../environments/environment';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
