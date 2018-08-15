@@ -9,3 +9,7 @@ html, body {
     padding-top: 20px;
     padding-left: 15px;
 }
+
+.spinner {
+    margin: 30px auto 0 auto;
+}

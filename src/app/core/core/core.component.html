@@ -1,6 +1,7 @@
 <mat-toolbar color="primary" class="mat-elevation-z6">App Sind</mat-toolbar>
 
-<div>
+<mat-spinner diameter="50" strokeWidth="3" class="spinner" *ngIf="loadingState"></mat-spinner>
+<div *ngIf="!loadingState">
   <mat-form-field class="formfild">
     <mat-select placeholder="Selecione o Estado" [(value)]="selectedState" id="selectState" name="selectState">
       <mat-option *ngFor="let state of states$ | async" [value]="state.ID" (click)="selectState()">
@@ -10,7 +11,8 @@
   </mat-form-field>
 </div>
 
-<div>
+<mat-spinner diameter="50" strokeWidth="3" class="spinner" *ngIf="loadingCity"></mat-spinner>
+<div *ngIf="!loadingCity && !loadingState">
   <mat-form-field class="formfild">
     <mat-select placeholder="Selecione a Cidade" [(value)]="selectedCity" id="selectCity" name="selectCity">
       <mat-option *ngFor="let city of cities$ | async" [value]="city.ID">

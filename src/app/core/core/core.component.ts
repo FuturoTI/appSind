@@ -5,6 +5,7 @@ import { AngularFirestore, CollectionReference } from 'angularfire2/firestore';
 import { State } from '../../interfaces/state.interface';
 
 import { Observable } from 'rxjs';
+import { take } from 'rxjs/operators';
 import { City } from '../../interfaces/city.interfaces';
 
 @Component({
@@ -18,6 +19,8 @@ export class CoreComponent implements OnInit {
   cities$: Observable<City[]>;
   selectedState: number;
   selectedCity: string;
+  loadingState =  true;
+  loadingCity =  false;
 
   constructor(
     private _db: AngularFirestore
@@ -26,13 +29,19 @@ export class CoreComponent implements OnInit {
   ngOnInit() {
     this.states$ = this._db.collection<State>('/states',
       (ref: CollectionReference) => ref.orderBy('Nome', 'asc')).valueChanges();
+      this.states$
+      .pipe(take(1))
+      .subscribe(() => this.loadingState = false);
   }
 
 
   selectState() {
+    this.loadingCity = true;
     this.cities$ = this._db.collection<City>('/cities',
       (ref: CollectionReference) => ref.orderBy('Nome', 'asc').where('Estado', '==', this.selectedState)).valueChanges();
-    console.log(this.selectedState);
+      this.cities$
+      .pipe(take(1))
+      .subscribe(() => this.loadingCity = false);
   }
 
   create(city: City): Promise<void> {

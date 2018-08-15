@@ -4,6 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatSelectModule} from '@angular/material/select';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 import { CoreComponent } from './core/core.component';
 
@@ -12,6 +13,7 @@ import { CoreComponent } from './core/core.component';
     CommonModule,
     MatToolbarModule,
     MatSelectModule,
+    MatProgressSpinnerModule,
     HttpClientModule
   ],
   exports: [
