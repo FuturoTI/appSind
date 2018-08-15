@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
+import { AngularFirestore } from '../../../../node_modules/angularfire2/firestore';
+
+import { State } from '../../interfaces/states.interface';
+
+import { Observable } from '../../../../node_modules/rxjs';
+
 @Component({
   selector: 'app-core',
   templateUrl: './core.component.html',
@@ -7,9 +13,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CoreComponent implements OnInit {
 
-  constructor() { }
+  state$: Observable<State[]>;
+
+  constructor(
+    private _db: AngularFirestore
+  ) { }
 
   ngOnInit() {
+    this.state$ = this._db.collection<State>('/states').valueChanges();
   }
 
 }
