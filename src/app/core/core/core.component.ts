@@ -1,12 +1,11 @@
-import { Component, OnInit, Input } from '@angular/core';
-
-import { AngularFirestore, CollectionReference } from 'angularfire2/firestore';
+import { Component, OnInit } from '@angular/core';
 
 import { State } from '../../interfaces/state.interface';
+import { City } from '../../interfaces/city.interfaces';
 
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
-import { City } from '../../interfaces/city.interfaces';
+import { DbService } from './../../sevices/db.service';
 
 @Component({
   selector: 'app-core',
@@ -19,38 +18,26 @@ export class CoreComponent implements OnInit {
   cities$: Observable<City[]>;
   selectedState: number;
   selectedCity: string;
-  loadingState =  true;
-  loadingCity =  false;
+  loadingState = true;
+  loadingCity = false;
 
   constructor(
-    private _db: AngularFirestore
+    private _dbService: DbService
   ) { }
 
   ngOnInit() {
-    this.states$ = this._db.collection<State>('/states',
-      (ref: CollectionReference) => ref.orderBy('Nome', 'asc')).valueChanges();
-      this.states$
+    this.states$ = this._dbService.getStates().valueChanges();
+    this.states$
       .pipe(take(1))
       .subscribe(() => this.loadingState = false);
   }
 
-
   selectState() {
     this.loadingCity = true;
-    this.cities$ = this._db.collection<City>('/cities',
-      (ref: CollectionReference) => ref.orderBy('Nome', 'asc').where('Estado', '==', this.selectedState)).valueChanges();
-      this.cities$
+    this.cities$ = this._dbService.getCities(this.selectedState).valueChanges();
+    this.cities$
       .pipe(take(1))
       .subscribe(() => this.loadingCity = false);
-  }
-
-  create(city: City): Promise<void> {
-    const uid = this._db.createId();
-    return this._db.collection('/cities').doc(uid).set({
-      ID: city.ID,
-      Nome: city.Nome,
-      Estado: city.Estado
-    });
   }
 
 }
