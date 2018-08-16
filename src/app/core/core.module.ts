@@ -9,6 +9,9 @@ import {MatTableModule} from '@angular/material/table';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material';
 import {MatGridListModule} from '@angular/material/grid-list';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {MatCardModule} from '@angular/material/card';
+import {MatButtonModule} from '@angular/material/button';
 
 import { CoreComponent } from './core/core.component';
 
@@ -22,7 +25,10 @@ import { CoreComponent } from './core/core.component';
     MatTableModule,
     MatInputModule,
     MatFormFieldModule,
-    MatGridListModule
+    MatGridListModule,
+    MatSlideToggleModule,
+    MatCardModule,
+    MatButtonModule
   ],
   exports: [
     CoreComponent

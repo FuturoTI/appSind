@@ -23,7 +23,7 @@ h4 {
     margin: 30px auto 0 auto;
 }
 
-table {
+table, mat-card {
     width: 90%;
     margin: 15px;
   }
@@ -36,3 +36,50 @@ table {
   .example-container > * {
     width: 100%;
   }
+
+  .row{
+    display:flex;
+    justify-content:flex-start;
+    align-items:stretch;
+    flex-wrap:nowrap;
+    padding-top:10px;
+    padding-right:10px;
+    padding-bottom:10px;
+    padding-left:10px;
+  }
+
+  .cell{
+    min-height:75px;
+    flex-grow:1;
+    flex-basis:100%;
+  }
+
+  @media (max-width: 768px){
+    .row{
+      flex-wrap:wrap;
+    }
+    .row{
+      flex-wrap:wrap;
+    }
+    .row{
+      flex-wrap:wrap;
+    }
+    .row{
+      flex-wrap:wrap;
+    }
+    .row{
+      flex-wrap:wrap;
+    }
+    .row{
+      flex-wrap:wrap;
+    }
+  }
+
+  .styletoggle{
+    margin-top: 20px!important;
+  }
+
+  button {
+    margin-top: 15px!important;
+  }
+  
