@@ -21,3 +21,13 @@
     </mat-select>
   </mat-form-field>
 </div>
+
+<div *ngIf="!loadingState">
+  <mat-form-field class="formfild">
+    <mat-select placeholder="Selecione o Evento" [(value)]="selectedEvent" id="selectedEvent" name="selectedEvent">
+      <mat-option *ngFor="let eventType of eventTypes$ | async" [value]="eventType.Type">
+        {{eventType.Type}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>

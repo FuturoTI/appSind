@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 
-import { AngularFirestore, AngularFirestoreCollection, CollectionReference } from '../../../node_modules/angularfire2/firestore';
+import { AngularFirestore, AngularFirestoreCollection, CollectionReference } from 'angularfire2/firestore';
 import { State } from '../interfaces/state.interface';
 import { City } from '../interfaces/city.interfaces';
+import { EventType } from './../interfaces/eventtype.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -21,5 +22,9 @@ export class DbService {
   getCities(selectedState: number): AngularFirestoreCollection<City> {
     return this._db.collection<City>('/cities',
     (ref: CollectionReference) => ref.orderBy('Nome', 'asc').where('Estado', '==', selectedState));
+  }
+
+  getEventType(): AngularFirestoreCollection<EventType> {
+    return this._db.collection<EventType>('/events');
   }
 }

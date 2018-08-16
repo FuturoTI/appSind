@@ -2,10 +2,11 @@ import { Component, OnInit } from '@angular/core';
 
 import { State } from '../../interfaces/state.interface';
 import { City } from '../../interfaces/city.interfaces';
+import { EventType } from '../../interfaces/eventtype.interface';
 
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
-import { DbService } from './../../sevices/db.service';
+import { DbService } from '../../sevices/db.service';
 
 @Component({
   selector: 'app-core',
@@ -16,6 +17,7 @@ export class CoreComponent implements OnInit {
 
   states$: Observable<State[]>;
   cities$: Observable<City[]>;
+  eventTypes$: Observable<EventType[]>;
   selectedState: number;
   selectedCity: string;
   loadingState = true;
@@ -29,7 +31,10 @@ export class CoreComponent implements OnInit {
     this.states$ = this._dbService.getStates().valueChanges();
     this.states$
       .pipe(take(1))
-      .subscribe(() => this.loadingState = false);
+      .subscribe(res => {
+        this.eventTypes$ = this._dbService.getEventType().valueChanges();
+        this.loadingState = false;
+      });
   }
 
   selectState() {
