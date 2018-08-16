@@ -7,6 +7,8 @@ import { EventType } from '../../interfaces/eventtype.interface';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { DbService } from '../../sevices/db.service';
+import { PeriodicElementInterface } from '../../interfaces/periodic.interface';
+import { PeriodicElement } from '../classes/periodicElemenr.class';
 
 @Component({
   selector: 'app-core',
@@ -20,8 +22,15 @@ export class CoreComponent implements OnInit {
   eventTypes$: Observable<EventType[]>;
   selectedState: number;
   selectedCity: string;
+  selectedEvent: string;
   loadingState = true;
   loadingCity = false;
+
+  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
+
+  ELEMENT_DATA: PeriodicElement = new PeriodicElement;
+
+  dataSource = this.ELEMENT_DATA.getPeriodicElement();
 
   constructor(
     private _dbService: DbService
