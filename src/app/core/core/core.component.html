@@ -38,44 +38,65 @@
 
 <div>
   <mat-radio-group class="formfild">
-    <mat-radio-button value="1" class="radio-button">Sim</mat-radio-button>
-    <mat-radio-button value="2" class="radio-button">Não</mat-radio-button>
+    <mat-radio-button [value]='"S"' [required]=true class="radio-button" (change)="showVictim($event)">Sim</mat-radio-button>
+    <mat-radio-button [value]='"N"' [required]=true class="radio-button" (change)="showVictim($event)">Não</mat-radio-button>
   </mat-radio-group>
 </div>
 
-<div>
+
+<div *ngIf="!loadingState && vShowVictim">
+  <mat-grid-list cols="2" rowHeight="1:1" gutterSize="1">
+    <mat-grid-tile>
+      <mat-form-field class="formfild">
+        <mat-select placeholder="Selecione o Tipo de Vitima" [(value)]="selectedVictim" id="selectedVictim" name="selectedVictim">
+          <mat-option *ngFor="let victimType of victimType$ | async" [value]="victimType.Type">
+            {{victimType.Type}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <mat-form-field>
+        <input matInput placeholder="Qtde" class="formfild">
+      </mat-form-field>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>
+
+
+<div *ngIf="vShowVictim">
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
     <!--- Note that these columns can be defined in any order.
           The actual rendered columns are set as a property on the row definition" -->
-  
+
     <!-- Position Column -->
     <ng-container matColumnDef="position">
       <th mat-header-cell *matHeaderCellDef> No. </th>
       <td mat-cell *matCellDef="let element"> {{element.position}} </td>
     </ng-container>
-  
+
     <!-- Name Column -->
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef> Name </th>
       <td mat-cell *matCellDef="let element"> {{element.name}} </td>
     </ng-container>
-  
+
     <!-- Weight Column -->
     <ng-container matColumnDef="weight">
       <th mat-header-cell *matHeaderCellDef> Weight </th>
       <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
     </ng-container>
-  
+
     <!-- Symbol Column -->
     <ng-container matColumnDef="symbol">
       <th mat-header-cell *matHeaderCellDef> Symbol </th>
       <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
     </ng-container>
-  
+
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
-  
-  
+
+
 </div>

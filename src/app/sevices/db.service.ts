@@ -1,3 +1,4 @@
+import { VictimType } from './../interfaces/victimtype.interface';
 import { Injectable } from '@angular/core';
 
 import { AngularFirestore, AngularFirestoreCollection, CollectionReference } from 'angularfire2/firestore';
@@ -26,5 +27,9 @@ export class DbService {
 
   getEventType(): AngularFirestoreCollection<EventType> {
     return this._db.collection<EventType>('/events');
+  }
+
+  getVictimType(): AngularFirestoreCollection<VictimType> {
+    return this._db.collection<EventType>('/victimType');
   }
 }
